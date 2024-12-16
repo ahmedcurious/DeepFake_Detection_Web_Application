@@ -41,10 +41,10 @@ def focal_loss(alpha=0.25, gamma=2.0):
 
 # Load all models
 model_paths = [
-    "../best_model.keras",
-    "../deepfake_model_increased_data.keras",
-    "../fine_tuned_custom_model.keras",
-    "../final_enhanced_model.keras",
+    "../model/best_model.keras",
+    "../model/deepfake_model_increased_data.keras",
+    "../model/fine_tuned_custom_model.keras",
+    "../model/final_enhanced_model.keras",
 ]
 
 models = [load_model(model_path) for model_path in model_paths[:3]]
