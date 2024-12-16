@@ -20,9 +20,13 @@ function App() {
       return response.json();
     },
     onSuccess: (data) => {
-      console.log("Backend Response:", data);
-      setResult(data);
-      resetInputs(); // Reset slider and image selection on success
+      if (data.error) {
+        setResult({ error: data.error }); // Handle the "No human face detected" case
+      } else {
+        console.log("Backend Response:", data);
+        setResult(data);
+      }
+      resetSlider();
     },
     onError: (error) => {
       console.error(error.message);
@@ -35,6 +39,7 @@ function App() {
       const file = event.target.files[0];
       setSelectedImage(file);
       setImagePreview(URL.createObjectURL(file)); // Generate preview URL
+      setResult(null); // Clear previous result when a new file is uploaded
     }
   };
 
@@ -55,10 +60,8 @@ function App() {
     setConfidence(value);
   };
 
-  const resetInputs = () => {
+  const resetSlider = () => {
     setConfidence(0.5);
-    setSelectedImage(null);
-    setImagePreview(null);
   };
 
   return (

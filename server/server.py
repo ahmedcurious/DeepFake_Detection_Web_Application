@@ -99,7 +99,7 @@ async def predict_image(file: UploadFile = File(...), confidence: float = Form(N
         # Detect face in the image
         if not detect_face(temp_file):
             os.remove(temp_file)
-            return JSONResponse(content={"error": "No human face detected"}, status_code=400)
+            return JSONResponse(content={"error": "No Human Face Detected in the uploaded Image."}, status_code=200)
 
         # Preprocess the image
         img_array = preprocess_image(temp_file)
