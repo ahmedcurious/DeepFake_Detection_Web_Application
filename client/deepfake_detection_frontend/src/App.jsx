@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { Button, Slider, Typography } from "@mui/material";
+import { Button, Slider } from "@mui/material";
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -74,7 +74,7 @@ function App() {
         width: "100vw",
         height: "100vh",
         backgroundImage:
-          "url('./src/assets/deepfake_background_picture_2.jpg')",
+          "url('./src/assets/deepfake_background_picture_3.jpg')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
@@ -90,17 +90,17 @@ function App() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          margin: "15px"
+          margin: "15px",
         }}
       >
-        <Typography variant="h4" gutterBottom>
+        <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>
           DeepFake Detection Model
-        </Typography>
-        <Typography variant="body1" gutterBottom>
+        </h1>
+        <p style={{ textAlign: "center", marginBottom: "1rem" }}>
           This tool uses advanced machine learning models to detect whether an
           image is real or fake. You can adjust the confidence level and upload
           an image to analyze its authenticity.
-        </Typography>
+        </p>
         <div
           style={{
             margin: "20px 0",
@@ -124,7 +124,7 @@ function App() {
             />
           </Button>
           {selectedImage && (
-            <Typography variant="body2">{selectedImage.name}</Typography>
+            <p style={{ fontSize: "0.875rem" }}>{selectedImage.name}</p>
           )}
           {imagePreview && (
             <div
@@ -156,9 +156,7 @@ function App() {
             justifyContent: "center",
           }}
         >
-          <Typography gutterBottom>
-            Confidence Level: {confidence.toFixed(2)}
-          </Typography>
+          <p>Confidence Level: {confidence.toFixed(2)}</p>
           <div
             style={{
               display: "flex",
@@ -167,8 +165,7 @@ function App() {
               width: "50%",
             }}
           >
-            <Typography
-              variant="body2"
+            <span
               style={{
                 padding: "5px 10px",
                 backgroundColor: "green",
@@ -177,7 +174,7 @@ function App() {
               }}
             >
               Real
-            </Typography>
+            </span>
             <Slider
               value={confidence}
               onChange={handleSliderChange}
@@ -188,8 +185,7 @@ function App() {
               disabled={!selectedImage} // Disable slider until image is uploaded
               style={{ flex: 1, margin: "0 16px" }} // Allow the slider to stretch between the labels
             />
-            <Typography
-              variant="body2"
+            <span
               style={{
                 padding: "5px 10px",
                 backgroundColor: "red",
@@ -198,7 +194,7 @@ function App() {
               }}
             >
               Fake
-            </Typography>
+            </span>
           </div>
         </div>
         <Button
@@ -212,10 +208,9 @@ function App() {
         {result && (
           <div style={{ marginTop: "20px" }}>
             {result.error ? (
-              <Typography color="error">{result.error}</Typography>
+              <p style={{ color: "red" }}>{result.error}</p>
             ) : (
-              <Typography
-                variant="body1"
+              <p
                 style={{
                   padding: "10px",
                   backgroundColor:
@@ -229,7 +224,7 @@ function App() {
                 {result.confidence_score !== undefined
                   ? result.confidence_score.toFixed(2)
                   : "N/A"}
-              </Typography>
+              </p>
             )}
           </div>
         )}
