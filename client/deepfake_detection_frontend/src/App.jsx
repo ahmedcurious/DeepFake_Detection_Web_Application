@@ -67,15 +67,15 @@ function App() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-screen h-screen bg-cover bg-center bg-no-repeat text-white overflow-hidden max-w-full"
+      className="flex flex-col items-center justify-center w-screen h-screen bg-cover bg-center bg-no-repeat text-white overflow-hidden max-w-full font-oxanium"
       style={{
         backgroundImage:
           "url('./src/assets/deepfake_background_picture_3.jpg')",
       }}
     >
       <div className="flex flex-col items-center justify-center m-4">
-        <h1 className="text-2xl mb-4">DeepFake Detection Model</h1>
-        <p className="text-center mb-4">
+        <h1 className="text-2xl mb-4 font-press_start_2p">DeepFake Detection Model</h1>
+        <p className="text-center mb-4 font-oxanium">
           This tool uses advanced machine learning models to detect whether an
           image is real or fake. You can adjust the confidence level and upload
           an image to analyze its authenticity.
