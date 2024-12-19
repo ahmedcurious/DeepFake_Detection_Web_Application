@@ -1,3 +1,4 @@
+import "./App.css";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Button, Slider } from "@mui/material";
@@ -66,55 +67,21 @@ function App() {
 
   return (
     <div
+      className="flex flex-col items-center justify-center w-screen h-screen bg-cover bg-center bg-no-repeat text-white overflow-hidden max-w-full"
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100vw",
-        height: "100vh",
         backgroundImage:
           "url('./src/assets/deepfake_background_picture_3.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        opacity: 1,
-        color: "white",
-        overflow: "hidden",
-        maxWidth: "100%",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          margin: "15px",
-        }}
-      >
-        <h1 style={{ fontSize: "2rem", marginBottom: "1rem" }}>
-          DeepFake Detection Model
-        </h1>
-        <p style={{ textAlign: "center", marginBottom: "1rem" }}>
+      <div className="flex flex-col items-center justify-center m-4">
+        <h1 className="text-2xl mb-4">DeepFake Detection Model</h1>
+        <p className="text-center mb-4">
           This tool uses advanced machine learning models to detect whether an
           image is real or fake. You can adjust the confidence level and upload
           an image to analyze its authenticity.
         </p>
-        <div
-          style={{
-            margin: "20px 0",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Button
-            variant="contained"
-            component="label"
-            style={{ marginBottom: "10px" }}
-          >
+        <div className="flex flex-col items-center justify-center my-5">
+          <Button variant="contained" component="label" className="mb-3">
             Upload Image
             <input
               type="file"
@@ -123,56 +90,21 @@ function App() {
               onChange={handleFileChange}
             />
           </Button>
-          {selectedImage && (
-            <p style={{ fontSize: "0.875rem" }}>{selectedImage.name}</p>
-          )}
+          {selectedImage && <p className="text-sm">{selectedImage.name}</p>}
           {imagePreview && (
-            <div
-              style={{
-                marginTop: "10px",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
+            <div className="mt-2 flex justify-center">
               <img
                 src={imagePreview}
                 alt="Uploaded Preview"
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "300px",
-                  borderRadius: "8px",
-                }}
+                className="max-w-full max-h-[300px] rounded-lg"
               />
             </div>
           )}
         </div>
-        <div
-          style={{
-            margin: "20px 0",
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <div className="my-5 w-full flex flex-col items-center justify-center">
           <p>Confidence Level: {confidence.toFixed(2)}</p>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              width: "50%",
-            }}
-          >
-            <span
-              style={{
-                padding: "5px 10px",
-                backgroundColor: "green",
-                color: "white",
-                borderRadius: "5px",
-              }}
-            >
+          <div className="flex items-center justify-between w-1/2">
+            <span className="px-3 py-1 bg-green-600 text-white rounded">
               Real
             </span>
             <Slider
@@ -183,16 +115,9 @@ function App() {
               max={0.9}
               valueLabelDisplay="auto"
               disabled={!selectedImage} // Disable slider until image is uploaded
-              style={{ flex: 1, margin: "0 16px" }} // Allow the slider to stretch between the labels
+              className="flex-1 mx-4" // Allow the slider to stretch between the labels
             />
-            <span
-              style={{
-                padding: "5px 10px",
-                backgroundColor: "red",
-                color: "white",
-                borderRadius: "5px",
-              }}
-            >
+            <span className="px-3 py-1 bg-red-600 text-white rounded">
               Fake
             </span>
           </div>
@@ -206,18 +131,16 @@ function App() {
           {mutation.isLoading ? "Analyzing..." : "Submit"}
         </Button>
         {result && (
-          <div style={{ marginTop: "20px" }}>
+          <div className="mt-5">
             {result.error ? (
-              <p style={{ color: "red" }}>{result.error}</p>
+              <p className="text-red-500">{result.error}</p>
             ) : (
               <p
-                style={{
-                  padding: "10px",
-                  backgroundColor:
-                    result.predicted_label === "Fake" ? "red" : "green",
-                  color: "white",
-                  borderRadius: "5px",
-                }}
+                className={`p-2 rounded text-white ${
+                  result.predicted_label === "Fake"
+                    ? "bg-red-600"
+                    : "bg-green-600"
+                }`}
               >
                 Prediction: {result.predicted_label || "N/A"} <br />
                 Confidence:{" "}
