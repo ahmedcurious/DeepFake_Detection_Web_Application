@@ -67,21 +67,26 @@ function App() {
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-screen h-screen bg-cover bg-center bg-no-repeat text-white overflow-hidden max-w-full font-oxanium"
+      className="flex flex-col items-center justify-center w-screen h-screen bg-cover
+      bg-center bg-no-repeat text-white overflow-hidden max-w-full font-oxanium"
       style={{
         backgroundImage:
           "url('./src/assets/deepfake_background_picture_3.jpg')",
       }}
     >
-      <div className="flex flex-col items-center justify-center m-4">
-        <h1 className="text-2xl mb-4 font-press_start_2p">DeepFake Detection Model</h1>
-        <p className="text-center mb-4 font-oxanium">
+      <div className="flex flex-col items-center justify-center 
+      bg-custom-gradient border-solid border-2 border-slate-300 box-border
+      rounded-3xl shadow-xl backdrop-blur sm:mx-auto h-fit w-1/2 p-8">
+        <h1 className="text-4xl mb-4 font-press_start_2p text-center shadow-md animate-pulse">
+          DeepFake Detector
+        </h1>
+        <p className="text-center font-medium mb-4 font-oxanium text-wrap w-1/2 animate-pulse text-lg">
           This tool uses advanced machine learning models to detect whether an
           image is real or fake. You can adjust the confidence level and upload
           an image to analyze its authenticity.
         </p>
         <div className="flex flex-col items-center justify-center my-5">
-          <Button variant="contained" component="label" className="mb-3">
+          <Button variant="contained" component="label" className="mb-3 font-oxanium">
             Upload Image
             <input
               type="file"
@@ -90,13 +95,13 @@ function App() {
               onChange={handleFileChange}
             />
           </Button>
-          {selectedImage && <p className="text-sm">{selectedImage.name}</p>}
+          {selectedImage && <p className="text-sm font-oxanium">{selectedImage.name}</p>}
           {imagePreview && (
             <div className="mt-2 flex justify-center">
               <img
                 src={imagePreview}
                 alt="Uploaded Preview"
-                className="max-w-full max-h-[300px] rounded-lg"
+                className="max-w-full max-h-[300px] rounded-lg animate-pulse"
               />
             </div>
           )}
@@ -115,7 +120,7 @@ function App() {
               max={0.9}
               valueLabelDisplay="auto"
               disabled={!selectedImage} // Disable slider until image is uploaded
-              className="flex-1 mx-4" // Allow the slider to stretch between the labels
+              className="flex-1 mx-4 font-oxanium" // Allow the slider to stretch between the labels
             />
             <span className="px-3 py-1 bg-red-600 text-white rounded">
               Fake
@@ -127,6 +132,7 @@ function App() {
           color="primary"
           onClick={handleSubmit}
           disabled={mutation.isLoading}
+          className="font-oxanium"
         >
           {mutation.isLoading ? "Analyzing..." : "Submit"}
         </Button>
