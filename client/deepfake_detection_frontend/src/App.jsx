@@ -2,6 +2,8 @@ import "./App.css";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Button, Slider } from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -89,9 +91,12 @@ function App() {
         </p>
         <div className="flex flex-col items-center justify-center my-5 animate-fadeIn delay-200">
           <Button
-            variant="contained"
+            variant="outlined"
             component="label"
-            className="mb-3 font-oxanium"
+            className="font-oxanium"
+            size="small"
+            sx={{ fontFamily: "Oxanium", color: "white", borderColor: "white", fontSize: "14px" }}
+            endIcon={<UploadFileIcon />}
           >
             Upload Image
             <input
@@ -129,6 +134,7 @@ function App() {
               valueLabelDisplay="auto"
               disabled={!selectedImage}
               className="flex-1 mx-4 font-oxanium"
+              sx={{ fontFamily: "Oxanium" }}
             />
             <span className="px-3 py-1 bg-red-600 text-white rounded">
               Fake
@@ -138,9 +144,12 @@ function App() {
         <Button
           variant="contained"
           color="primary"
+          size="large"
           onClick={handleSubmit}
           disabled={mutation.isLoading}
           className="font-oxanium animate-fadeIn delay-500"
+          sx={{ fontFamily: "Oxanium" }}
+          endIcon={<SendIcon />}
         >
           {mutation.isLoading ? "Analyzing..." : "Submit"}
         </Button>
