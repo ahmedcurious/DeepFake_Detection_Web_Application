@@ -10,6 +10,7 @@ function App() {
   const [imagePreview, setImagePreview] = useState(null); // For image preview
   const [confidence, setConfidence] = useState(0.5);
   const [result, setResult] = useState(null);
+  const [isInteractionDisabled, setIsInteractionDisabled] = useState(false); // New state to manage button and slider
 
   const mutation = useMutation({
     mutationFn: async (formData) => {
@@ -29,11 +30,12 @@ function App() {
         console.log("Backend Response:", data);
         setResult(data);
       }
-      resetSlider();
+      setIsInteractionDisabled(true); // Keep interaction disabled until a new image is uploaded
     },
     onError: (error) => {
       console.error(error.message);
       setResult({ error: "Something went wrong. Please try again." });
+      setIsInteractionDisabled(true); // Keep interaction disabled until a new image is uploaded
     },
   });
 
@@ -43,6 +45,7 @@ function App() {
       setSelectedImage(file);
       setImagePreview(URL.createObjectURL(file)); // Generate preview URL
       setResult(null); // Clear previous result when a new file is uploaded
+      setIsInteractionDisabled(false); // Enable interaction for the new image
     }
   };
 
@@ -56,15 +59,12 @@ function App() {
     formData.append("file", selectedImage); // Use "file" key as expected by the backend
     formData.append("confidence", confidence);
 
+    setIsInteractionDisabled(true); // Disable interaction during prediction
     mutation.mutate(formData);
   };
 
   const handleSliderChange = (_, value) => {
     setConfidence(value);
-  };
-
-  const resetSlider = () => {
-    setConfidence(0.5);
   };
 
   return (
@@ -97,9 +97,9 @@ function App() {
           <h1
             className="text-4xl mb-6 font-press_start_2p text-center shadow-md
           animate-typing overflow-hidden whitespace-nowrap border-r-4 border-r-white"
-          style={{
-            animationDelay: "1800ms",
-          }}
+            style={{
+              animationDelay: "1800ms",
+            }}
           >
             DeepFake Detector
           </h1>
@@ -178,7 +178,7 @@ function App() {
               min={0.1}
               max={0.9}
               valueLabelDisplay="auto"
-              disabled={!selectedImage}
+              disabled={isInteractionDisabled || !selectedImage}
               className="flex-1 mx-4 font-oxanium"
               sx={{ fontFamily: "Oxanium" }}
             />
@@ -192,7 +192,7 @@ function App() {
           color="primary"
           size="large"
           onClick={handleSubmit}
-          disabled={mutation.isLoading}
+          disabled={isInteractionDisabled}
           className="font-oxanium"
           style={{
             opacity: 0, // Initial hidden state
@@ -219,7 +219,7 @@ function App() {
                 }`}
               >
                 Prediction: {result.predicted_label || "N/A"} <br />
-                Confidence:{" "}
+                Confidence: {" "}
                 {result.confidence_score !== undefined
                   ? result.confidence_score.toFixed(2)
                   : "N/A"}
