@@ -31,6 +31,28 @@ export default {
         "custom-gradient":
           "linear-gradient(103deg, rgba(255, 255, 255, 0.052) -9.46%, rgba(255, 255, 255, 0.26) 110.33%)",
       },
+      keyframes: {
+        typing: {
+          "0%": {
+            width: "0%",
+            visibility: "hidden",
+          },
+          "100%": {
+            width: "100%",
+          },
+        },
+        blink: {
+          "50%": {
+            borderColor: "transparent",
+          },
+          "100%": {
+            borderColor: "white",
+          },
+        },
+      },
+      animation: {
+        typing: "typing 3s steps(30) , blink .7s infinite",
+      },
     },
   },
   plugins: [tailwindcssAnimate],

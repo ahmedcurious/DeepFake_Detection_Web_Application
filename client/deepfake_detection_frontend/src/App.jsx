@@ -2,8 +2,8 @@ import "./App.css";
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Button, Slider } from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
+import SendIcon from "@mui/icons-material/Send";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 function App() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -80,22 +80,61 @@ function App() {
         className="flex flex-col items-center justify-center 
       bg-custom-gradient border-solid border-2 border-slate-300 box-border
       rounded-3xl shadow-xl backdrop-blur sm:mx-auto h-fit w-1/2 p-8"
+        style={{
+          opacity: 0, // Initial hidden state
+          animation: "fade-in 700ms ease-in-out forwards",
+          animationDelay: "1000ms",
+        }}
       >
-        <h1 className="text-4xl mb-4 font-press_start_2p text-center shadow-md animate-in fade-in animation-delay-1000">
-          DeepFake Detector
-        </h1>
-        <p className="text-center font-medium mb-4 font-oxanium text-wrap w-1/2 animate-fadeIn delay-100">
+        <div
+          className="w-fit"
+          style={{
+            opacity: 0, // Initial hidden state
+            animation: "fade-in 700ms ease-in-out forwards",
+            animationDelay: "1800ms",
+          }}
+        >
+          <h1
+            className="text-4xl mb-6 font-press_start_2p text-center shadow-md
+          animate-typing overflow-hidden whitespace-nowrap border-r-4 border-r-white"
+          style={{
+            animationDelay: "1800ms",
+          }}
+          >
+            DeepFake Detector
+          </h1>
+        </div>
+        <p
+          className="text-center text-lg font-medium mb-4 font-oxanium text-wrap w-3/4"
+          style={{
+            opacity: 0, // Initial hidden state
+            animation: "fade-in 700ms ease-in-out forwards",
+            animationDelay: "2600ms",
+          }}
+        >
           This tool uses advanced machine learning models to detect whether an
           image is real or fake. You can adjust the confidence level and upload
           an image to analyze its authenticity.
         </p>
-        <div className="flex flex-col items-center justify-center my-5 animate-fadeIn delay-200">
+        <div
+          className="flex flex-col items-center justify-center my-5"
+          style={{
+            opacity: 0, // Initial hidden state
+            animation: "fade-in 700ms ease-in-out forwards",
+            animationDelay: "3200ms",
+          }}
+        >
           <Button
             variant="outlined"
             component="label"
             className="font-oxanium"
             size="small"
-            sx={{ fontFamily: "Oxanium", color: "white", borderColor: "white", fontSize: "14px" }}
+            sx={{
+              fontFamily: "Oxanium",
+              color: "white",
+              borderColor: "white",
+              fontSize: "14px",
+            }}
             endIcon={<UploadFileIcon />}
           >
             Upload Image
@@ -107,19 +146,26 @@ function App() {
             />
           </Button>
           {selectedImage && (
-            <p className="text-sm font-oxanium">{selectedImage.name}</p>
+            <p className="text-sm font-oxanium mt-3">{selectedImage.name}</p>
           )}
           {imagePreview && (
             <div className="mt-2 flex justify-center">
               <img
                 src={imagePreview}
                 alt="Uploaded Preview"
-                className="max-w-full max-h-[300px] rounded-lg animate-fadeIn delay-300 shadow-lg"
+                className="max-w-full max-h-[300px] rounded-lg shadow-lg animate-in fade-in duration-700"
               />
             </div>
           )}
         </div>
-        <div className="my-5 w-full flex flex-col items-center justify-center animate-fadeIn delay-400">
+        <div
+          className="my-5 w-full flex flex-col items-center justify-center"
+          style={{
+            opacity: 0, // Initial hidden state
+            animation: "fade-in 700ms ease-in-out forwards",
+            animationDelay: "3800ms",
+          }}
+        >
           <p>Confidence Level: {confidence.toFixed(2)}</p>
           <div className="flex items-center justify-between w-1/2">
             <span className="px-3 py-1 bg-green-600 text-white rounded">
@@ -147,19 +193,26 @@ function App() {
           size="large"
           onClick={handleSubmit}
           disabled={mutation.isLoading}
-          className="font-oxanium animate-fadeIn delay-500"
-          sx={{ fontFamily: "Oxanium" }}
+          className="font-oxanium"
+          style={{
+            opacity: 0, // Initial hidden state
+            animation: "fade-in 700ms ease-in-out forwards",
+            animationDelay: "4600ms",
+          }}
+          sx={{ fontFamily: "Oxanium", backgroundColor: "#01c3d5" }}
           endIcon={<SendIcon />}
         >
           {mutation.isLoading ? "Analyzing..." : "Submit"}
         </Button>
         {result && (
-          <div className="mt-5 animate-fadeIn delay-600">
+          <div className="mt-5 animate-in fade-in duration-700">
             {result.error ? (
-              <p className="text-red-500">{result.error}</p>
+              <p className="text-white bg-red-600 rounded py-2 px-10">
+                {result.error}
+              </p>
             ) : (
               <p
-                className={`p-2 rounded text-white ${
+                className={`rounded text-white py-2 px-10 ${
                   result.predicted_label === "Fake"
                     ? "bg-red-600"
                     : "bg-green-600"
