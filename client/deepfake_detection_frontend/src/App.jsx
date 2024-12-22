@@ -78,8 +78,9 @@ function App() {
     >
       <div
         className="flex flex-col items-center justify-center 
-      bg-custom-gradient border-solid border-2 border-slate-300 box-border
-      rounded-3xl shadow-xl backdrop-blur sm:mx-auto h-fit w-1/2 p-8"
+      bg-custom-gradient border-solid border-2 box-border
+      rounded-3xl shadow-xl backdrop-blur sm:mx-auto h-fit w-1/2 p-8
+      border-slate-300"
         style={{
           opacity: 0, // Initial hidden state
           animation: "fade-in 700ms ease-in-out forwards",
@@ -112,7 +113,7 @@ function App() {
             animationDelay: "2600ms",
           }}
         >
-          This tool uses advanced machine learning models to detect whether an
+          This tool uses Advanced Deep Learning Models to detect whether an
           image is real or fake. You can adjust the confidence level and upload
           an image to analyze its authenticity.
         </p>
@@ -127,7 +128,11 @@ function App() {
           <Button
             variant="outlined"
             component="label"
-            className="font-oxanium"
+            className={`font-oxanium ${
+              !selectedImage || (result && isInteractionDisabled)
+                ? "animate-bounce"
+                : ""
+            }`}
             size="small"
             sx={{
               fontFamily: "Oxanium",
@@ -180,7 +185,7 @@ function App() {
               valueLabelDisplay="auto"
               disabled={isInteractionDisabled || !selectedImage}
               className="flex-1 mx-4 font-oxanium"
-              sx={{ fontFamily: "Oxanium" }}
+              sx={{ fontFamily: "Oxanium", color: "#01c3d5" }}
             />
             <span className="px-3 py-1 bg-red-600 text-white rounded">
               Fake
@@ -193,17 +198,26 @@ function App() {
           size="large"
           onClick={handleSubmit}
           disabled={isInteractionDisabled}
-          className="font-oxanium"
-          style={{
-            opacity: 0, // Initial hidden state
-            animation: "fade-in 700ms ease-in-out forwards",
-            animationDelay: "4600ms",
-          }}
+          className={`font-oxanium ${
+            selectedImage && !isInteractionDisabled && !result
+              ? "animate-bounce"
+              : ""
+          }`}
+          style={
+            !selectedImage || result
+              ? {
+                  opacity: 0, // Initial hidden state
+                  animation: "fade-in 700ms ease-in-out forwards",
+                  animationDelay: "4600ms",
+                }
+              : {}
+          }
           sx={{ fontFamily: "Oxanium", backgroundColor: "#01c3d5" }}
           endIcon={<SendIcon />}
         >
           {mutation.isLoading ? "Analyzing..." : "Submit"}
         </Button>
+
         {result && (
           <div className="mt-5 animate-in fade-in duration-700">
             {result.error ? (
@@ -219,7 +233,7 @@ function App() {
                 }`}
               >
                 Prediction: {result.predicted_label || "N/A"} <br />
-                Confidence: {" "}
+                Confidence:{" "}
                 {result.confidence_score !== undefined
                   ? result.confidence_score.toFixed(2)
                   : "N/A"}
