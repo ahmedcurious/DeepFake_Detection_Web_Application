@@ -77,10 +77,17 @@ function App() {
       }}
     >
       <div
-        className="flex flex-col items-center justify-center 
-      bg-custom-gradient border-solid border-2 box-border
-      rounded-3xl shadow-xl backdrop-blur sm:mx-auto h-fit w-1/2 p-8
-      border-slate-300"
+        className={`flex flex-col items-center justify-center 
+    bg-custom-gradient border-solid border-2 box-border
+    rounded-3xl shadow-xl backdrop-blur sm:mx-auto h-fit w-1/2 p-8 ${
+      result?.error
+        ? "border-red-600"
+        : result?.predicted_label === "Fake"
+        ? "border-red-600"
+        : result?.predicted_label === "Real"
+        ? "border-green-600"
+        : "border-slate-300"
+    }`}
         style={{
           opacity: 0, // Initial hidden state
           animation: "fade-in 700ms ease-in-out forwards",
